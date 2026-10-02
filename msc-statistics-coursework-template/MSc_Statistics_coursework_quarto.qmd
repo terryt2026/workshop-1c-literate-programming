@@ -167,9 +167,9 @@ kbl(df,
     font_size = 12)
 ```
 
-#ChickWeight dataset analysis
+# ChickWeight dataset analysis
 
-We will explore some basic features of the @crowder1990analysis dataset.
+We will explore some basic features of the ChickWeight dataset [@crowder1990analysis].
 
 ```{r}
 #| echo: false
@@ -179,7 +179,7 @@ cw <- ChickWeight
 
 Let's first see the number of chicks doing different diets.
 
-```{r}
+```{r echo = FALSE}
 #| label: tbl-diet
 #| tbl-cap: "Number of chicks doing each diets."
 
@@ -189,7 +189,7 @@ knitr::kable(diet_counts, col.names = c("Diet", "Count"))
 
 @tbl-diet shows that there are much more samples of chicks doing diet 1, which may cause bias in the later results.
 
-```{r}
+```{r echo = FALSE}
 #| label: tbl-lm
 #| tbl-cap: "Linear model fitted with the chickweight dataset."
 
@@ -198,11 +198,41 @@ weight_lm <- lm(weight ~ ., data = cw)
 
 # extract coefficients and standard errors
 weight_lm_coefficients <- summary(weight_lm)$coefficients[,1:2]
-knitr::kable(x = weight_lm_coefficients)
+
+nice_names <- rownames(weight_lm_coefficients)
+
+nice_names <- gsub("\\(Intercept\\)", "Intercept", nice_names)
+nice_names <- gsub("\\.", " ", nice_names)
+nice_names <- gsub("\\^", " ", nice_names)
+
+rownames(weight_lm_coefficients) <- nice_names
+knitr::kable(
+  x = round(weight_lm_coefficients, 2),
+  col.names = c("MLE", "Std. Err"))
 ```
 
-And more...
+@tbl-lm demonstrates the MLE and standard error of each features.
 
+Maybe we can have a plot with weights as time varies.
+
+```{r echo = FALSE}
+#| label: fig-weight
+#| fig-cap: "Weight against time by chicks."
+
+plot(
+  x = cw$Time,
+  y = cw$weight, 
+  col = cw$Chick,
+  pch = 15,
+  xlim = c(0,25), # extend plotting area to make room for legend
+  ylim = c(0,300),
+  main = "Weight against time",
+  xlab = "Time (day)",
+  ylab = "Weight (g)",
+  bty = "n")
+```
+
+@fig-weight shows some interesting results.
 
 # Code appendix
 
