@@ -1,6 +1,6 @@
 ---
 title: "Coursework Template"
-subtitle: 'MSc in Statistics 2025/26, Imperial College London'
+subtitle: 'MSc in Statistics 2026/27, Imperial College London'
 author: "Andrew Duncan, Oliver Ratmann"
 format:
   html:
@@ -166,6 +166,42 @@ kbl(df,
     bootstrap_options = c("striped", "hover", "condensed"),
     font_size = 12)
 ```
+
+#ChickWeight dataset analysis
+
+We will explore some basic features of the @crowder1990analysis dataset.
+
+```{r}
+#| echo: false
+
+cw <- ChickWeight
+```
+
+Let's first see the number of chicks doing different diets.
+
+```{r}
+#| label: tbl-diet
+#| tbl-cap: "Number of chicks doing each diets."
+
+diet_counts <- table(cw$Diet)
+knitr::kable(diet_counts, col.names = c("Diet", "Count"))
+```
+
+@tbl-diet shows that there are much more samples of chicks doing diet 1, which may cause bias in the later results.
+
+```{r}
+#| label: tbl-lm
+#| tbl-cap: "Linear model fitted with the chickweight dataset."
+
+# fit linear model
+weight_lm <- lm(weight ~ ., data = cw)
+
+# extract coefficients and standard errors
+weight_lm_coefficients <- summary(weight_lm)$coefficients[,1:2]
+knitr::kable(x = weight_lm_coefficients)
+```
+
+And more...
 
 
 # Code appendix
