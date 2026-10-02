@@ -46,8 +46,8 @@ The basic markdown we have met already forms the backbone writing quarto documen
 You have seen many examples in the first two workshops fo code blocks. 
 
 ```{{r}}
-# use :: to access data or functions from within a package 
-penguins <- palmerpenguins::penguins 
+# use :: to access data or functions from within a package
+penguins <- palmerpenguins::penguins
 ```
 
 
@@ -234,7 +234,7 @@ In report-style assessments you will not usually display your code in the main b
 n <- 100
 x <- rnorm(n, mean = 0, sd = 1)
 y <- rnorm(n, mean = x, sd = abs(x) / 2)
-type <- ifelse(x > 0, "A", "B")
+type <- ifelse(x > 0, "A", "B") #explain why you are doing this
 
 # collect and clean workspace
 sim <- data.frame(x, y, type)
@@ -302,7 +302,7 @@ kable(head(penguins)[ ,1:6])
 
 ```{r}
 #| label: fig-sim-data
-#| tbl-cap: "Scatter plot of two simulated datasets."
+#| fig-cap: "Scatter plot of two simulated datasets."
 plot(x = sim$x, y = sim$y)
 ```
 
@@ -605,7 +605,7 @@ Where a figure or table is mentioned in the main text you should explain _how_ i
 
 > BAD: @fig-penguin-scatter demonstrates Simpson's paradox.
 
-> GOOD: @fig-penguin-scatter shows that while there appears to be a positive association between bill length and depth _within_ each species, this association disappears or perhaps reverses when considering all species together. This is an example of Simpson's paradox [simpson1951contingency].
+> GOOD: @fig-penguin-scatter shows that while there appears to be a positive association between bill length and depth _within_ each species, this association disappears or perhaps reverses when considering all species together. This is an example of Simpson's paradox [@simpson1951contingency].
 
 ## Useful Resources 
 
